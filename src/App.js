@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import{BrowserRouter,Routes,Route} from "react-router-dom"
+import Navigation from './Navigation';
+import Commands from './Commands';
+import User from './User';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+      <Routes>
+        <Route path='/'element={<Navigation/>}/>
+        {/* <Route path="/name"element={<Name/>} /> */}
+        {/* <Route path="/age"element={<Age/>} />    */}
+        {/* <Route path="/education"element={<Education/>}/> */}
+        {/* <Route path="/Currentskill"element={<Currentskill/>}/> */}
+        {/* <Route path="/Contact"element={<Contact/>}/> */}
+        {/* <Route path='/String' element={<String1/>}/> */}
+        {/* <Route path='/contain' element={<Containvowels/>}/> */}
+        {/* <Route path='/Add' element={<Addnumber/>}/> */}
+        <Route path="/User"element={<User/>}/>
+        <Route path="/Commands"element={<Commands/>}/>
+      </Routes>
+    </BrowserRouter>
     </div>
   );
 }
