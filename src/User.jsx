@@ -1,28 +1,31 @@
 import Navigation from './Navigation';
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Ground } from './context';
 
 const User = () => {
-    const [user, setUser] = useState([])
-    let b = user
+    const useGroundContext = useContext(Ground)
+    let b = useGroundContext.user
     const [copy, setCopy] = useState(b)
+    let arr=["!","@","#","$",""]
+
+
+
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/users")
-            .then(a => a.json())
-            .then(b => {
-                setUser(b)
-            })
-    }, [])
+        useGroundContext.fetchCall("users")
+    },[])
+
+
+
     const handlechange = (e) => {
         let inputNumber = e.target.value
         let ascii = inputNumber.charCodeAt(0)
-
         let length = parseInt(inputNumber)
-        console.log("user", user)
+        console.log("user",  b)
         if (length >= 0 && length <= 1000 && !(ascii >= 65 && ascii <= 90) && !(ascii >= 97 && ascii <= 122)) {
             setCopy(b.slice(0, length))
         } else {
-            setCopy(user)
-
+            setCopy( b)
+                 
             alert("invalid input")
 
         }
@@ -32,6 +35,7 @@ const User = () => {
 
         <>
             <Navigation />
+            
             <h1 className="center">users</h1>
 
             <input type='text' className='text' onChange={handlechange}></input>
@@ -51,9 +55,9 @@ const User = () => {
                         <p>{data.company.name}</p>
                     </div>
                 ))}
-
+                  
             </div>
-
+                
         </>
     )
 }
