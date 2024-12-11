@@ -1,20 +1,70 @@
 import Navigation from './Navigation';
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { Ground } from './context';
+
+const Card = ({data}) => {
+    return (
+      <>
+      <div className='changepointer'>
+        <h3>{data && data.id}</h3>
+        <p>{data && data.name}</p>
+        <p>{data && data.email}</p>
+        <p>{data && data.username}</p>
+        <p>{data && data.phone}</p>
+        <p>{data && data.website}</p>
+        <p>{data && data.address.street}</p>
+        <p>{data && data.address.city}</p>
+        <p>{data && data.address.zipcode}</p>
+        <p>{data && data.company.name}</p>
+        </div>
+      </>
+    );
+  };
 
 const User = () => {
     const useGroundContext = useContext(Ground)
     let b = useGroundContext.user
     const [copy, setCopy] = useState(b)
-    let arr=["!","@","#","$",""]
+    const [on,setOn]=useState(null)
+    const [increment, setIncrement] = useState(0)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+const [input, setInput] = useState("Prav")
+const [apiResponse, setApiRespose] = useState([{name: "Praveen"},{name: "Prasanth"},{name: "Praveen"},{name: "Prakash"}])
+
+const _handleIncrement = useCallback(() =>{
+  setIncrement(increment+1)
+},[input, ])
+
+
+    const result = useMemo(()=>{
+      return apiResponse.filter((item) => item.name.includes(input))
+      
+    },[input]) //p
+
+    console.log("@tm result", result)
 
     useEffect(() => {
         useGroundContext.fetchCall("users")
     },[])
-
-
+    console.log("useGroundContext.add",useGroundContext.add)
 
     const handlechange = (e) => {
         let inputNumber = e.target.value
@@ -30,35 +80,41 @@ const User = () => {
 
         }
     }
+    function handleclick(id){
+        if(on && on.id ==id){
+            setOn(null)
+        }else{
+            setOn(b.filter((val)=>val.id===id)[0])
+        }
+    }
     console.log("copy", copy)
+
+
+
+   
     return (
 
         <>
             <Navigation />
             
             <h1 className="center">users</h1>
+            <button onClick={_handleIncrement}>+</button>
 
             <input type='text' className='text' onChange={handlechange}></input>
-
-            <div className="main">
-                {copy.map((data) => (
-                    <div className="sub">
-                        <h3>{data.id}</h3>
-                        <p>{data.name}</p>
-                        <p>{data.email}</p>
-                        <p>{data.username}</p>
-                        <p>{data.phone}</p>
-                        <p>{data.website}</p>
-                        <p>{data.address.street}</p>
-                        <p>{data.address.city}</p>
-                        <p>{data.address.zipcode}</p>
-                        <p>{data.company.name}</p>
-                    </div>
-                ))}
-                  
+            {on === null ? (
+        <div className="main">
+          {b.map((data) => (
+            <div className="sub" onClick={() => handleclick(data.id)}>
+              <Card data={data} />
             </div>
-                
-        </>
+          ))}
+        </div>
+      ) : (
+        <div className="sub" onClick={() => handleclick(on.id)}>
+          <Card data={on} />
+        </div>
+      )}
+      </>
     )
 }
 export default User;

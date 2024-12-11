@@ -49,3 +49,6 @@ a{
 .text{
   margin-left: 50%;
 }
+.changepointer{
+  cursor: pointer;
+}

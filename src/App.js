@@ -7,13 +7,15 @@ import User from './User';
 import Upper from './Upper';
 import { Ground } from './context';
 import { useState } from 'react';
+import Oddevennumber from './Oddevennumber';
+import Star from './Star';
+import Array from './Array';
+import Largest from './Largest';
 
-
-
-
-function App() {
+const App=()=> {
   const [center, setCenter] = useState([])// commets
   const [user, setUser] = useState([])//user
+  const [add,setAdd] = useState("")
 
 
   const fetchCall = (page) => {
@@ -31,7 +33,8 @@ function App() {
 
 
   return (
-    <Ground.Provider value={{ fetchCall, user, center }}>
+    <Ground.Provider value={{ fetchCall, user, center,add,setAdd }}>
+    
       <div>
         <BrowserRouter>
           <Routes>
@@ -47,6 +50,10 @@ function App() {
             <Route path="/User" element={<User />} />
             <Route path="/Commands" element={<Commands />} />
             <Route path="/Upper" element={<Upper />} />
+            <Route path="/Oddevennumber" element={<Oddevennumber/>} />
+            <Route path="/Star" element={<Star/>} />
+            <Route path="/Array" element={<Array/>} />
+            <Route path="/Largest" element={<Largest/>} />
           </Routes>
         </BrowserRouter>
       </div>

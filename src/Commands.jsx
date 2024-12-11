@@ -7,8 +7,8 @@ const Commands=()=>{
 
 useEffect(()=>{
     useGroundContext.fetchCall("comments")
+    useGroundContext.setAdd("usgfhfthfgher")
 },[])
-
 
     return(
         <>
